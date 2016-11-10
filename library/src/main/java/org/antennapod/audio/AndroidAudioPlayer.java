@@ -338,6 +338,16 @@ public class AndroidAudioPlayer extends AbstractAudioPlayer {
         }
     }
 
+    @Override public void setAudioSessionId(int sessionId) {
+        owningMediaPlayer.lock.lock();
+        try {
+            mp.setAudioSessionId(sessionId);
+        }
+        finally {
+            owningMediaPlayer.lock.unlock();
+        }
+    }
+
     @Override
     public void setAudioStreamType(int streamtype) {
         owningMediaPlayer.lock.lock();

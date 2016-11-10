@@ -71,6 +71,8 @@ public abstract class AbstractAudioPlayer {
 
     public abstract void seekTo(int msec) throws IllegalStateException;
 
+    public abstract void setAudioSessionId(int sessionId);
+
     public abstract void setAudioStreamType(int streamtype);
 
     public abstract void setDataSource(Context context, Uri uri) throws IllegalArgumentException, IllegalStateException, IOException;

@@ -630,6 +630,10 @@ public class ServiceBackedAudioPlayer extends AbstractAudioPlayer {
         }
     }
 
+    @Override public void setAudioSessionId(int sessionId) {
+        // impossible
+    }
+
     /**
      * Functions identically to android.media.MediaPlayer.setAudioStreamType(int streamtype)
      * Sets the audio stream type.

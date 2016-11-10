@@ -63,6 +63,7 @@ public class SonicAudioPlayer extends AbstractAudioPlayer {
     private final Context mContext;
     private PowerManager.WakeLock mWakeLock = null;
     private boolean mDownMix;
+    private int desiredAudioSessionId = 0;
 
     private final static String TAG_TRACK = "SonicTrack";
 
@@ -602,6 +603,10 @@ public class SonicAudioPlayer extends AbstractAudioPlayer {
         return true;
     }
 
+    @Override public void setAudioSessionId(int sessionId) {
+        desiredAudioSessionId = sessionId;
+    }
+
     private void initDevice(int sampleRate, int numChannels) {
         mLock.lock();
         final int format = findFormatFromChannels(numChannels);
@@ -627,7 +632,7 @@ public class SonicAudioPlayer extends AbstractAudioPlayer {
             try {
                 audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
                         channelConfig, AudioFormat.ENCODING_PCM_16BIT, bufferSize,
-                        AudioTrack.MODE_STREAM);
+                        AudioTrack.MODE_STREAM, desiredAudioSessionId);
                 if (audioTrack.getState() == AudioTrack.STATE_INITIALIZED) {
                     mBufferSize = bufferSize;
                     return audioTrack;
